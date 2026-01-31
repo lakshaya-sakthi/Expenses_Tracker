@@ -8,6 +8,18 @@ import API from "../api";
 import { AuthContext } from "../context/AuthContext";
 import { CSVLink } from "react-csv";
 import { Pie } from "react-chartjs-2";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+
+const { isAuthenticated } = useContext(AuthContext);
+const navigate = useNavigate();
+
+useEffect(() => {
+  if (!isAuthenticated) {
+    navigate("/");
+  }
+}, [isAuthenticated, navigate]);
+
 import {
   Chart as ChartJS,
   ArcElement,
