@@ -9,16 +9,6 @@ import { AuthContext } from "../context/AuthContext";
 import { CSVLink } from "react-csv";
 import { Pie } from "react-chartjs-2";
 import { useNavigate } from "react-router-dom";
-
-const { isAuthenticated } = useContext(AuthContext);
-const navigate = useNavigate();
-
-useEffect(() => {
-  if (!isAuthenticated) {
-    navigate("/");
-  }
-}, [isAuthenticated, navigate]);
-
 import {
   Chart as ChartJS,
   ArcElement,
@@ -33,7 +23,14 @@ ChartJS.register(
 );
 
 export default function Dashboard() {
-  const { logout } = useContext(AuthContext);
+    const { logout, isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   const [darkMode, setDarkMode] = useState(false);
 
